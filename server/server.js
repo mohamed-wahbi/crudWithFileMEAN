@@ -45,6 +45,18 @@ app.get('/getArticleById/:id', async (req,res)=>{
 })
 
 
+app.delete('/deleteArticle/:id',async (req,res)=>{
+    try {
+        const id = req.params.id;
+        const deletedArticle = await articleModel.findByIdAndDelete({_id:id});
+        deletedArticle?res.status(200).send({article:deletedArticle,message:'article est bien suprimer'}):res.status(404).send('article non supprimer !');
+    } catch (error) {
+        console.log("error lors de la deleting d'un article avec id!");
+        res.status(500).send(error);
+    }
+})
+
+
 
 
 
