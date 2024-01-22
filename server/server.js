@@ -57,6 +57,25 @@ app.delete('/deleteArticle/:id',async (req,res)=>{
 })
 
 
+app.put('/updateArticle/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { title, description, price, image } = req.body;
+
+        const updatedArticle = await articleModel.findByIdAndUpdate(
+            { _id: id },
+            { title, description, price, image },
+            { new: true, runValidators: true }
+        );
+
+        updatedArticle ? res.status(200).send({ article: updatedArticle, message: 'Article bien modifié.' }) : res.status(404).send('Article non modifié.');
+    } catch (error) {
+        console.log("Erreur lors de la mise à jour d'un article avec l'ID :", error);
+        res.status(500).send(error);
+    }
+});
+
+
 
 
 
