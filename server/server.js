@@ -33,6 +33,17 @@ app.get('/getAllArticle',async (req,res)=>{
     }
 })
 
+app.get('/getArticleById/:id', async (req,res)=>{
+    try {
+        const id = req.params.id ;
+        const article = await articleModel.findById({_id:id});
+        article?res.status(200).send({article:article,message:"article id trouver ."}):res.status(404).send("article id non trouver !");
+    } catch (error) {
+        console.log("error lors de la fetching d'un article avec id!");
+        res.status(500).send(error);
+    }
+})
+
 
 
 
