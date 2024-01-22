@@ -23,6 +23,22 @@ app.post('/createArticle',async (req,res)=>{
 })
 
 
+app.get('/getAllArticle',async (req,res)=>{
+    try {
+        const allArticle = await articleModel.find({});
+        allArticle?res.status(200).send({article:allArticle,message:"article trouver ."}):res.status(404).send("article non trouver !");
+    } catch (error) {
+        console.log("error lors de la fetching d'article !");
+        res.status(500).send(error);
+    }
+})
+
+
+
+
+
+
+
 app.listen(port,()=>{
     console.log('Server is active *_*');
 })
